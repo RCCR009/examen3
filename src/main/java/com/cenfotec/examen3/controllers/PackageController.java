@@ -1,6 +1,7 @@
 package com.cenfotec.examen3.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,8 +49,13 @@ public class PackageController {
 	
 	@GetMapping("/package/{id}")
 	public Package getPackageById(@PathVariable("id") String id) {
-		Package pack = repository.findById(id).get();
-		return pack;
+		try {
+			System.out.println(id);
+			Package pack = repository.findById(id).get();
+			return pack;
+		} catch(NoSuchElementException e) {
+			return null;
+		}
 	}
 	
 }

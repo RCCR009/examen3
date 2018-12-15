@@ -1,6 +1,7 @@
 package com.cenfotec.examen3.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,9 +48,14 @@ public class CourierController {
 	}
 	
 	@GetMapping("/courier/{id}")
-	public Courier getCourierById(@PathVariable("id") String id) {
-		Courier pack = repository.findById(id).get();
-		return pack;
+	public Courier getPackageById(@PathVariable("id") String id) {
+		try {
+			System.out.println(id);
+			Courier courier = repository.findById(id).get();
+			return courier;
+		} catch(NoSuchElementException e) {
+			return null;
+		}
 	}
 	
 }

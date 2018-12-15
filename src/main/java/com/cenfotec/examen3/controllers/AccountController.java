@@ -1,6 +1,7 @@
 package com.cenfotec.examen3.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,9 +48,14 @@ public class AccountController {
 	}
 	
 	@GetMapping("/account/{id}")
-	public Account getAccountById(@PathVariable("id") String id) {
-		Account pack = repository.findById(id).get();
-		return pack;
+	public Account getPackageById(@PathVariable("id") String id) {
+		try {
+			System.out.println(id);
+			Account account = repository.findById(id).get();
+			return account;
+		} catch(NoSuchElementException e) {
+			return null;
+		}
 	}
 	
 }
