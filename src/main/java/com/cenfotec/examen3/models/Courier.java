@@ -10,6 +10,10 @@ public class Courier {
     String id;
 	String nombre;
 	
+	public Courier() {
+		
+	}
+	
 	public Courier(String pnombre) {
 		this.nombre = pnombre;
 	}
