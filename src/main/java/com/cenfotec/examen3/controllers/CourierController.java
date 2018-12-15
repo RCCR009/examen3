@@ -1,9 +1,15 @@
 package com.cenfotec.examen3.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +23,33 @@ public class CourierController {
 	private CourierRepository repository;
 
 	@PostMapping("/courier")
-	public ResponseEntity<String> postPackage(@RequestBody Courier pcourier) {
+	public ResponseEntity<String> postCourier(@RequestBody Courier pcourier) {
 		repository.save(pcourier);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/courier")
+	public ResponseEntity<String> putCourier(@RequestBody Courier pcourier) {
+		repository.save(pcourier);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+	
+	@DeleteMapping("/courier")
+	public ResponseEntity<String> deleteCourier(@RequestBody Courier pcourier) {
+		repository.delete(pcourier);
+		return new ResponseEntity<>(HttpStatus.MOVED_PERMANENTLY);
+	}
+	
+	@GetMapping("/courier")
+	public List<Courier> getCourier() {
+		List<Courier> couriers = repository.findAll();
+		return couriers;
+	}
+	
+	@GetMapping("/courier/{id}")
+	public Courier getCourierById(@PathVariable("id") String id) {
+		Courier pack = repository.findById(id).get();
+		return pack;
+	}
+	
 }
