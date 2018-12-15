@@ -1,5 +1,6 @@
 package com.cenfotec.examen3.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -48,10 +49,20 @@ public class FlightController {
 	}
 	
 	@GetMapping("/flight/{id}")
-	public Flight getPackageById(@PathVariable("id") String id) {
+	public Flight getFlightById(@PathVariable("id") String id) {
 		try {
 			System.out.println(id);
 			Flight flight = repository.findById(id).get();
+			return flight;
+		} catch(NoSuchElementException e) {
+			return null;
+		}
+	}
+	
+	@GetMapping("/flight/nextFlight")
+	public Flight getNextFlight() {
+		try {
+			Flight flight = repository.findByDateBetween(LocalDate.now().atStartOfDay(), LocalDate.now().atTime(23, 59));
 			return flight;
 		} catch(NoSuchElementException e) {
 			return null;

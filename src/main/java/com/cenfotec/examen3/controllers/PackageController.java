@@ -67,4 +67,24 @@ public class PackageController {
 		}
 	}
 	
+	@GetMapping("/package/recibidos")
+	public List<Package> getPackageByRecibidos() {
+		try {
+			List<Package> packs = repository.findByPrealerted(false);
+			return packs;
+		} catch(NoSuchElementException e) {
+			return null;
+		}
+	}
+	
+	@GetMapping("/package/getByAccount")
+	public List<Package> getPackageByRecibidos(String idAccount) {
+		try {
+			List<Package> packs = repository.findByAccount(idAccount);
+			return packs;
+		} catch(NoSuchElementException e) {
+			return null;
+		}
+	}
+	
 }
