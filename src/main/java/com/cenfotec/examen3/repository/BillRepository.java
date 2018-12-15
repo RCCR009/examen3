@@ -1,4 +1,4 @@
-package com.cenfotec.repository;
+package com.cenfotec.examen3.repository;
 
 import java.util.List;
 
