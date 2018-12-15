@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cenfotec.examen3.models.Flight;
 import com.cenfotec.examen3.models.Package;
+import com.cenfotec.examen3.repository.FlightRepository;
 import com.cenfotec.examen3.repository.PackageRepository;
 
 @RestController
@@ -23,6 +25,9 @@ public class PackageController {
 
 	@Autowired
 	private PackageRepository repository;
+	
+	@Autowired
+	private FlightRepository flightRepository;
 
 	@PostMapping("/package")
 	public ResponseEntity<String> postPackage(@RequestBody Package ppackage) {
@@ -36,6 +41,27 @@ public class PackageController {
 		ppackage.setPrealerted(false);
 		repository.save(ppackage);
 		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/package/recibirPrealerta")
+	public ResponseEntity<String> recibirPrealerta(@RequestBody Package ppackage) {
+		try {
+			ppackage.setFechaRecibido(LocalDate.now());
+			ppackage.setPrealerted(true);
+			if(ppackage.getBill() != null) {
+				Package pack = repository.save(ppackage);
+				Flight flight = flightRepository.findByDateBetween(LocalDate.now().atStartOfDay(), LocalDate.now().atTime(23, 59));
+				flight.addPackage(pack);
+				flightRepository.save(flight);
+				return new ResponseEntity<>(HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(NoSuchElementException e) {
+			return null;
+		} catch(NullPointerException e ) {
+			return null;
+		}
 	}
 	
 	@PutMapping("/package")
