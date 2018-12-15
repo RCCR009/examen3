@@ -2,7 +2,14 @@ package com.cenfotec.examen3.models;
 
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "bill")
 public class Bill {
+	
+	@Id
+	private String id;
 	private double amount;
 	private LocalDate fecha;
 	private String store;
@@ -17,7 +24,13 @@ public class Bill {
 		this.fecha = fecha;
 		this.store = store;
 	}
-
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public double getAmount() {
 		return amount;
 	}

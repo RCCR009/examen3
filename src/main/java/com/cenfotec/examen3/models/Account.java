@@ -10,6 +10,10 @@ public class Account {
     String id;
 	String nombre;
 	
+	public Account() {
+		
+	}
+	
 	public Account(String pnombre) {
 		this.nombre = pnombre;
 	}

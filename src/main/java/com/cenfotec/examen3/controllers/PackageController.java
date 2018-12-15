@@ -1,5 +1,6 @@
 package com.cenfotec.examen3.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -25,6 +26,14 @@ public class PackageController {
 
 	@PostMapping("/package")
 	public ResponseEntity<String> postPackage(@RequestBody Package ppackage) {
+		repository.save(ppackage);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/package/recibirPaquete")
+	public ResponseEntity<String> recibirPaquete(@RequestBody Package ppackage) {
+		ppackage.setFechaRecibido(LocalDate.now());
+		ppackage.setPrealerted(false);
 		repository.save(ppackage);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

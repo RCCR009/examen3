@@ -16,6 +16,10 @@ public class Package {
 	Courier courier;
 	Bill bill;
 	
+	public Package() {
+		
+	}
+	
 	public Package(Boolean pprealerted, Account preceiver, LocalDate pdateReceived, Courier pcourier, Bill pbill) {
 		this.prealerted = pprealerted;
 		this.receiver = preceiver;
@@ -54,10 +58,10 @@ public class Package {
 	public void setCourier(Courier courier) {
 		this.courier = courier;
 	}
-	public Bill getInvoice() {
+	public Bill getBill() {
 		return bill;
 	}
-	public void setInvoice(Bill bill) {
+	public void setBill(Bill bill) {
 		this.bill = bill;
 	}
 	
