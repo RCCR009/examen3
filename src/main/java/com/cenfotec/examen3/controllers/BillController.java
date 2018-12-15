@@ -1,4 +1,4 @@
-package com.cenfotec.controller;
+package com.cenfotec.examen3.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cenfotec.examen3.models.Flight;
-import com.cenfotec.repository.FlightRepository;
+import com.cenfotec.examen3.models.Bill;
+import com.cenfotec.examen3.repository.BillRepository;
 
 @RestController
-public class FlightController {
+public class BillController {
 	
 	@Autowired
-	private FlightRepository repository;
+	private BillRepository repository;
 
-	@PostMapping("/flight")
-	public ResponseEntity<String> addColleague(@RequestBody Flight flight){
-		repository.save(flight);
+	@PostMapping("/bill")
+	public ResponseEntity<String> addColleague(@RequestBody Bill bill){
+		repository.save(bill);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-	
+
 }
